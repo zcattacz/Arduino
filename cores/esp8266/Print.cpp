@@ -118,6 +118,13 @@ size_t ICACHE_FLASH_ATTR Print::print(long n, int base) {
     }
 }
 
+size_t ICACHE_FLASH_ATTR Print::print(uint64_t n, int base) {
+    if(base == 0)
+        return write(n);
+    else
+        return printNumber(n, base);
+}
+
 size_t ICACHE_FLASH_ATTR Print::print(unsigned long n, int base) {
     if(base == 0)
         return write(n);
@@ -185,6 +192,12 @@ size_t ICACHE_FLASH_ATTR Print::println(long num, int base) {
     return n;
 }
 
+size_t ICACHE_FLASH_ATTR Print::println(uint64_t num, int base) {
+    size_t n = print(num, base);
+    n += println();
+    return n;
+}
+
 size_t ICACHE_FLASH_ATTR Print::println(unsigned long num, int base) {
     size_t n = print(num, base);
     n += println();
@@ -205,9 +218,9 @@ size_t ICACHE_FLASH_ATTR Print::println(const Printable& x) {
 
 // Private Methods /////////////////////////////////////////////////////////////
 
-size_t ICACHE_FLASH_ATTR Print::printNumber(unsigned long n, uint8_t base) {
-    char buf[8 * sizeof(long) + 1]; // Assumes 8-bit chars plus zero byte.
-    char *str = &buf[sizeof(buf) - 1];
+size_t ICACHE_FLASH_ATTR Print::printNumber(uint64_t n, uint8_t base) {
+    char buf[8 * sizeof(n) + 1]; // Assumes 8-bit chars plus zero byte.
+    char *str = buf + sizeof(buf) - 1;
 
     *str = '\0';
 
@@ -216,7 +229,7 @@ size_t ICACHE_FLASH_ATTR Print::printNumber(unsigned long n, uint8_t base) {
         base = 10;
 
     do {
-        unsigned long m = n;
+        uint64_t m = n;
         n /= base;
         char c = m - base * n;
         *--str = c < 10 ? c + '0' : c + 'A' - 10;
