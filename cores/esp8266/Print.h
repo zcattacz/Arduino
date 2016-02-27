@@ -34,7 +34,8 @@
 class Print {
     private:
         int write_error;
-        size_t printNumber(uint64_t, uint8_t);
+        template<typename UINT_T>
+        size_t printNumber(UINT_T, uint8_t);
         size_t printFloat(double, uint8_t);
     protected:
         void setWriteError(int err = 1) {
