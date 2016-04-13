@@ -34,7 +34,8 @@
 class Print {
     private:
         int write_error;
-        size_t printNumber(unsigned long, uint8_t);
+        template<typename UINT_T>
+        size_t printNumber(UINT_T, uint8_t);
         size_t printFloat(double, uint8_t);
     protected:
         void setWriteError(int err = 1) {
@@ -72,6 +73,7 @@ class Print {
         size_t print(int, int = DEC);
         size_t print(unsigned int, int = DEC);
         size_t print(long, int = DEC);
+        size_t print(uint64_t, int = DEC);
         size_t print(unsigned long, int = DEC);
         size_t print(double, int = 2);
         size_t print(const Printable&);
@@ -84,6 +86,7 @@ class Print {
         size_t println(int, int = DEC);
         size_t println(unsigned int, int = DEC);
         size_t println(long, int = DEC);
+        size_t println(uint64_t, int = DEC);
         size_t println(unsigned long, int = DEC);
         size_t println(double, int = 2);
         size_t println(const Printable&);
