@@ -113,12 +113,14 @@ size_t Print::print(long n, int base) {
     }
 }
 
+#if HAVE_PRINT_UINT64
 size_t Print::print(uint64_t n, int base) {
     if(base == 0)
         return write(n);
     else
         return printNumber(n, base);
 }
+#endif
 
 size_t Print::print(unsigned long n, int base) {
     if(base == 0)
@@ -187,11 +189,13 @@ size_t Print::println(long num, int base) {
     return n;
 }
 
+#if HAVE_PRINT_UINT64
 size_t Print::println(uint64_t num, int base) {
     size_t n = print(num, base);
     n += println();
     return n;
 }
+#endif
 
 size_t Print::println(unsigned long num, int base) {
     size_t n = print(num, base);

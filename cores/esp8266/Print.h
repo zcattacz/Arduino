@@ -31,6 +31,13 @@
 #define OCT 8
 #define BIN 2
 
+#if ULONG_MAX != 0xffffffffffffffff
+#define HAVE_PRINT_UINT64 1
+#else
+#define HAVE_PRINT_UINT64 0
+#endif
+
+
 class Print {
     private:
         int write_error;
@@ -73,7 +80,9 @@ class Print {
         size_t print(int, int = DEC);
         size_t print(unsigned int, int = DEC);
         size_t print(long, int = DEC);
+        #if HAVE_PRINT_UINT64
         size_t print(uint64_t, int = DEC);
+        #endif
         size_t print(unsigned long, int = DEC);
         size_t print(double, int = 2);
         size_t print(const Printable&);
@@ -86,7 +95,9 @@ class Print {
         size_t println(int, int = DEC);
         size_t println(unsigned int, int = DEC);
         size_t println(long, int = DEC);
+        #if HAVE_PRINT_UINT64
         size_t println(uint64_t, int = DEC);
+        #endif
         size_t println(unsigned long, int = DEC);
         size_t println(double, int = 2);
         size_t println(const Printable&);
