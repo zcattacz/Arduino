@@ -339,7 +339,7 @@ ESPhttpUpdate.update("192.168.0.2", 80, "/arduino.bin");
 
 ##### Advanced updater
 
-Its possible to point update function to a script at the server.
+It's possible to point update function to a script at the server.
 If version string argument is given, it will be sent to the server.
 Server side script can use this to check if update should be performed.
 
